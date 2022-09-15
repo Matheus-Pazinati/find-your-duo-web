@@ -1,12 +1,13 @@
-import { MagnifyingGlassPlus } from 'phosphor-react'
 import { useEffect, useState } from 'react';
 
 import { GameCard } from './components/GameCard';
+import { CreateAds } from './components/CreateAds';
 
 import './styles/main.css';
 import logoImg from '/logo-nlw-esports.svg';
 
 interface GameProps {
+  id: string
   baseUrl: string;
   title: string;
   _count: {
@@ -41,24 +42,19 @@ function App() {
 
         <div className='grid grid-cols-6 gap-6 mt-16'>
           {games.map((game) => {
-            return <GameCard baseUrl={game.baseUrl} title={game.title} ads={game._count.ads} />
+            return (
+              <GameCard
+                key={game.id}
+                baseUrl={game.baseUrl}
+                title={game.title}
+                ads={game._count.ads}
+              />
+            )
           })}
         </div>
       </div>
-
-      <div className='pt-1 bg-nlw-gradient mt-8 self-stretch rounded-lg overflow-hidden'>
-        <div className='bg-[#2A2634] px-8 py-6 flex justify-between items-center'>
-          <div>
-            <strong className='text-white text-2xl font-black block'>Não encontrou seu duo?</strong>
-            <span className='text-zinc-400 block'>Publique um anúncio para encontrar novos players!</span>
-          </div>
-
-          <button className='py-3 px-4 bg-violet-500 text-white hover:bg-violet-600 rounded-md flex items-center gap-3 font-bold'>
-            <MagnifyingGlassPlus size={24} />
-            Publicar anúncio
-          </button>
-        </div>
-      </div>
+        
+      <CreateAds />
 
     </div>
   )
