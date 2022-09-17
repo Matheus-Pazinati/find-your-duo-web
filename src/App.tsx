@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { GameCard } from './components/GameCard';
 import { CreateAds } from './components/CreateAds';
-import { AdModal } from './components/CreateAdModal';
+import { CreateAdModal } from './components/CreateAdModal';
 
-import * as Dialog from '@radix-ui/react-dialog'
+import * as Dialog from '@radix-ui/react-dialog';
 
 import './styles/main.css';
 import logoImg from '/logo-nlw-esports.svg';
@@ -59,7 +59,7 @@ function App() {
 
         <Dialog.Root>
           <CreateAds />
-          <AdModal />
+          <CreateAdModal />
         </Dialog.Root>
     </div>
   )

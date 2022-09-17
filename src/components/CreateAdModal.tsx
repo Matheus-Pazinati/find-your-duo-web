@@ -1,8 +1,11 @@
-import { GameController } from 'phosphor-react';
+import { Check, GameController } from 'phosphor-react';
+
 import * as Dialog from '@radix-ui/react-dialog';
+import * as Checkbox from '@radix-ui/react-checkbox';
+
 import { Input } from './Form/Input';
 
-export function AdModal() {
+export function CreateAdModal() {
   return (
     <Dialog.Portal>
       <Dialog.Overlay className='bg-black/60 inset-0 fixed' />
@@ -70,8 +73,12 @@ export function AdModal() {
             </div>
           </div>
 
-          <div className='flex gap-1'>
-            <input type="checkbox" />
+          <div className='flex gap-1 items-center'>
+            <Checkbox.Root className='w-6 h-6 p-1 rounded bg-zinc-900'>
+              <Checkbox.Indicator>
+                <Check className='w-4 h-4 text-emerald-400' />
+              </Checkbox.Indicator>
+            </Checkbox.Root>
             Costumo me conectar ao chat de voz
           </div>
 
