@@ -4,6 +4,7 @@ import { CaretDown, Check, GameController } from 'phosphor-react';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
 
 import { Input } from './Form/Input';
 
@@ -16,6 +17,7 @@ interface GameProps {
 export function CreateAdModal() {
 
   const [games, setGames] = useState<GameProps[]>([])
+  const [weekDays, setWeekDays] = useState<string[]>([])
 
   useEffect(() => {
     async function getGamesFromServer() {
@@ -38,8 +40,8 @@ export function CreateAdModal() {
 
           <div className='flex flex-col gap-2'>
             <label htmlFor="game" className='font-semibold'>Qual o game?</label>
-            <select id="game" className='py-3 px-4 bg-zinc-900 text-sm rounded'>
-              <option disabled selected>Selecione o game que deseja jogar</option>
+            <select id="game" className='py-3 px-4 bg-zinc-900 text-sm rounded' defaultValue="">
+              <option disabled value="">Selecione o game que deseja jogar</option>
               {games.map((game) => {
                 return (
                   <option key={game.id} value={game.id}>
@@ -79,15 +81,29 @@ export function CreateAdModal() {
           <div className='flex gap-6'>
             <div className='flex flex-col gap-2'>
               <label htmlFor="weekDays" className='font-semibold'>Quando costuma jogar?</label>
-              <div className='grid grid-cols-4 gap-1'>
-                <button title='Domingo' className='w-10 h-10 bg-zinc-900 font-bold'>D</button>
-                <button title='Segunda-Feira' className='w-10 h-10 bg-zinc-900 font-bold'>S</button>
-                <button title='Terça-Feira' className='w-10 h-10 bg-zinc-900 font-bold'>T</button>
-                <button title='Quarta-Feira' className='w-10 h-10 bg-zinc-900 font-bold'>Q</button>
-                <button title='Quinta-Feira' className='w-10 h-10 bg-zinc-900 font-bold'>Q</button>
-                <button title='Sexta-Feira' className='w-10 h-10 bg-zinc-900 font-bold'>S</button>
-                <button title='Sábado' className='w-10 h-10 bg-zinc-900 font-bold'>S</button>
-              </div>
+              <ToggleGroup.Root value={weekDays} onValueChange={setWeekDays} type='multiple' className='grid grid-cols-4 gap-1'>
+                <ToggleGroup.Item value='0' title='Domingo' className={`w-10 h-10 font-bold ${weekDays.includes('0') ? 'bg-violet-500' : 'bg-zinc-900'}`}>
+                  D
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value='1' title='Segunda-Feira' className={`w-10 h-10 font-bold ${weekDays.includes('1') ? 'bg-violet-500' : 'bg-zinc-900'}`}>
+                  S
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value='2' title='Terça-Feira' className={`w-10 h-10 font-bold ${weekDays.includes('2') ? 'bg-violet-500' : 'bg-zinc-900'}`}>
+                  T
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value='3' title='Quarta-Feira' className={`w-10 h-10 font-bold ${weekDays.includes('3') ? 'bg-violet-500' : 'bg-zinc-900'}`}>
+                  Q
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value='4' title='Quinta-Feira' className={`w-10 h-10 font-bold ${weekDays.includes('4') ? 'bg-violet-500' : 'bg-zinc-900'}`}>
+                  Q
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value='5' title='Sexta-Feira' className={`w-10 h-10 font-bold ${weekDays.includes('5') ? 'bg-violet-500' : 'bg-zinc-900'}`}>
+                  S
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value='6' title='Sábado' className={`w-10 h-10 font-bold ${weekDays.includes('6') ? 'bg-violet-500' : 'bg-zinc-900'}`}>
+                  S
+                </ToggleGroup.Item>
+              </ToggleGroup.Root>
             </div>
             <div className='flex flex-col gap-2 flex-1'>
               <label htmlFor="hourStart" className='font-semibold'>Qual horário do dia?</label>
