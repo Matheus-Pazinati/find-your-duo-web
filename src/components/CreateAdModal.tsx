@@ -1,11 +1,32 @@
-import { Check, GameController } from 'phosphor-react';
+import { useEffect, useState } from 'react';
+
+import { CaretDown, Check, GameController } from 'phosphor-react';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
 
 import { Input } from './Form/Input';
 
+
+interface GameProps {
+  id: string
+  title: string;
+  }
+
 export function CreateAdModal() {
+
+  const [games, setGames] = useState<GameProps[]>([])
+
+  useEffect(() => {
+    async function getGamesFromServer() {
+      const response = await fetch('http://localhost:3333/games')
+      const games = await response.json()
+
+      setGames(games)
+    }
+    getGamesFromServer()
+  }, [])
+
   return (
     <Dialog.Portal>
       <Dialog.Overlay className='bg-black/60 inset-0 fixed' />
@@ -17,11 +38,16 @@ export function CreateAdModal() {
 
           <div className='flex flex-col gap-2'>
             <label htmlFor="game" className='font-semibold'>Qual o game?</label>
-            <Input
-              type="text"
-              id="game"
-              placeholder='Selecione o game que deseja jogar'
-            />
+            <select id="game" className='py-3 px-4 bg-zinc-900 text-sm rounded'>
+              <option disabled selected>Selecione o game que deseja jogar</option>
+              {games.map((game) => {
+                return (
+                  <option key={game.id} value={game.id}>
+                    {game.title}
+                  </option>
+                )
+              })}
+            </select>
           </div>
 
           <div className='flex flex-col gap-2'>
