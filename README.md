@@ -13,12 +13,14 @@
 <h2>🛠️ Tecnologias e ferramentas/bibliotecas utilizadas</h2>
 <ul>
   <li><a href="https://pt-br.reactjs.org/">ReactJS</a></li>
+    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
   <li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
   <li><a href="https://www.radix-ui.com/">Radix-UI</a></li>
 </ul>
 <br>
 <h2>📌 Funcionalidades a serem implementadas</h2>
 <ul>
+  <li>Aplicar responsividade para dispositivos móveis</li>
   <li>Criar a visualização dos anúncios por jogo</li>
   <li>Criar um componente de alerta, que será acionado quando o usuário cadastrar um novo anúncio</li>
   <li>Construir um componente de carrossel para os jogos</li>
