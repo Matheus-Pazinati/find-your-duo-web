@@ -20,9 +20,9 @@
 <br>
 <h2>📌 Funcionalidades a serem implementadas</h2>
 <ul>
+  <li>Criar um componente de alerta, que será acionado quando o usuário cadastrar um novo anúncio - Ok ✔️</li>
   <li>Aplicar responsividade para dispositivos móveis</li>
   <li>Criar a visualização dos anúncios por jogo</li>
-  <li>Criar um componente de alerta, que será acionado quando o usuário cadastrar um novo anúncio</li>
   <li>Construir um componente de carrossel para os jogos</li>
 </ul>
 <br>
