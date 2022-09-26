@@ -2,6 +2,8 @@ import { FormEvent, useEffect, useState } from 'react';
 
 import { Check, GameController } from 'phosphor-react';
 
+import Swal, { SweetAlertIcon } from 'sweetalert2';
+
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
@@ -12,9 +14,28 @@ import { Input } from './Form/Input';
 interface GameProps {
   id: string
   title: string;
+}
+
+interface Props {
+  onSubmit: () => void
+}
+
+export function CreateAdModal({ onSubmit }: Props) {
+
+  function closeModal() {
+    onSubmit()
   }
 
-export function CreateAdModal() {
+  function showAlertAfterCreateAd(type: SweetAlertIcon) {
+    const adCreatedSuccessfully = type === 'success'
+    closeModal()
+    Swal.fire({
+      icon: type,
+      title: adCreatedSuccessfully ? 'Anúncio criado' : 'Ops, houve um erro',
+      text: adCreatedSuccessfully ? 'Seu anúncio foi cadastrado em nossa plataforma' : 'Tente novamente',
+      focusConfirm: true
+    })
+  }
 
   const [games, setGames] = useState<GameProps[]>([])
   const [weekDays, setWeekDays] = useState<string[]>([])
@@ -56,10 +77,10 @@ export function CreateAdModal() {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log('Success');
+      showAlertAfterCreateAd('success');
     })
     .catch((error) => {
-      console.error('Error:', error);
+      showAlertAfterCreateAd('error')
     });
 
   }

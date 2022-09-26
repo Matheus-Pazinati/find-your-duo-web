@@ -22,6 +22,12 @@ function App() {
 
   const [games, setGames] = useState<GameProps[]>([])
 
+  const [modalOpen, setModalOpen] = useState(false)
+
+  function handleModalOpen() {
+    setModalOpen(false)
+  }
+
   useEffect(() => {
     async function getGamesFromServer() {
       const response = await fetch('http://localhost:3333/games')
@@ -57,9 +63,11 @@ function App() {
         </div>
       </div>
 
-        <Dialog.Root>
+        <Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
           <CreateAds />
-          <CreateAdModal />
+          <CreateAdModal
+            onSubmit={handleModalOpen}
+          />
         </Dialog.Root>
     </div>
   )
