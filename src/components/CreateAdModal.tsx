@@ -10,6 +10,8 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group';
 
 import { Input } from './Form/Input';
 
+import { useForm } from 'react-hook-form'
+
 
 interface GameProps {
   id: string
@@ -21,6 +23,8 @@ interface Props {
 }
 
 export function CreateAdModal({ onSubmit }: Props) {
+
+  const { register, handleSubmit } = useForm()
 
   function closeModal() {
     onSubmit()
@@ -96,7 +100,12 @@ export function CreateAdModal({ onSubmit }: Props) {
 
           <div className='flex flex-col gap-2'>
             <label htmlFor="game" className='font-semibold'>Qual o game?</label>
-            <select id="game" name='game' className='py-3 px-4 bg-zinc-900 text-sm rounded' defaultValue="">
+            <select 
+              id="game" 
+              className='py-3 px-4 bg-zinc-900 text-sm rounded' 
+              defaultValue=""
+              {...register('game', {required: true})}
+            >
               <option disabled value="">Selecione o game que deseja jogar</option>
               {games.map((game) => {
                 return (
@@ -113,8 +122,8 @@ export function CreateAdModal({ onSubmit }: Props) {
             <Input
               type="text"
               id='name'
-              name='name'
               placeholder='Qual seu nome dentro do jogo?'
+              {...register('name', {required: true})}
             />
           </div>
 
@@ -126,20 +135,32 @@ export function CreateAdModal({ onSubmit }: Props) {
               <Input
                 type="number"
                 id="yearsPlaying"
-                name='yearsPlaying'
                 placeholder='Tudo bem ser ZERO'
+                {...register('yearsPlaying', {required: true})}
               />
             </div>
             <div className='flex flex-col gap-2'>
               <label htmlFor="discord" className='font-semibold'>Qual seu Discord?</label>
-              <Input type="text" name='discord' id="discord" placeholder='Usuário#0000' />
+              <Input 
+                type="text"
+                id="discord" 
+                placeholder='Usuário#0000' 
+                {...register('discord', {required: true})}
+              />
             </div>
           </div>
 
           <div className='flex gap-6'>
             <div className='flex flex-col gap-2'>
               <label htmlFor="weekDays" className='font-semibold'>Quando costuma jogar?</label>
-              <ToggleGroup.Root value={weekDays} onValueChange={setWeekDays} type='multiple' className='grid grid-cols-4 gap-1'>
+              <ToggleGroup.Root 
+                value={weekDays} 
+                id='weekDays'
+                onValueChange={setWeekDays} 
+                type='multiple' 
+                className='grid grid-cols-4 gap-1'
+                {...register('weekDays',{required: true})}
+              >
                 <ToggleGroup.Item value='0' title='Domingo' className={`w-10 h-10 font-bold ${weekDays.includes('0') ? 'bg-violet-500' : 'bg-zinc-900'}`}>
                   D
                 </ToggleGroup.Item>
@@ -166,8 +187,18 @@ export function CreateAdModal({ onSubmit }: Props) {
             <div className='flex flex-col gap-2 flex-1'>
               <label htmlFor="hourStart" className='font-semibold'>Qual horário do dia?</label>
               <div className='grid grid-cols-2 gap-2'>
-                <Input type="time" id="hourStart" name='hourStart' placeholder='De' />
-                <Input type="time" id="hourEnd" name='hourEnd' placeholder='Até' />
+                <Input 
+                  type="time" 
+                  id="hourStart" 
+                  placeholder='De' 
+                  {...register('hourStart', {required: true})}
+                />
+                <Input 
+                  type="time" 
+                  id="hourEnd" 
+                  placeholder='Até' 
+                  {...register('hourEnd', {required: true})}
+                />
               </div>
 
             </div>
@@ -183,7 +214,8 @@ export function CreateAdModal({ onSubmit }: Props) {
                 } else {
                   setUseVoiceChannel(false)
                 }
-              }}  
+              }}
+              {...register('useVoiceChannel', {required: true})}  
             >
               <Checkbox.Indicator>
                 <Check className='w-4 h-4 text-emerald-400' />
